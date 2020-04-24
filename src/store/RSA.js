@@ -1,9 +1,11 @@
 import generateRandomBytes from '@/libs/hpcrypt/generateRandomBytes'
-import generateKeys from '@/libs/hpcrypt/rsa/generateKeys'
-import importPublicKey from '@/libs/hpcrypt/rsa/importPublicKey'
-import importPrivateKey from '@/libs/hpcrypt/rsa/importPrivateKey'
-import encrypt from '@/libs/hpcrypt/rsa/encrypt'
-import decrypt from '@/libs/hpcrypt/rsa/decrypt'
+import {
+  generateKeys,
+  importPublicKey,
+  importPrivateKey,
+  encrypt,
+  decrypt
+} from '@/libs/hpcrypt/rsa'
 
 export default {
   namespaced: true,

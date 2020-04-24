@@ -11,3 +11,5 @@ export default {
   encrypt,
   decrypt
 }
+
+export { generateKeys, importPublicKey, importPrivateKey, encrypt, decrypt }

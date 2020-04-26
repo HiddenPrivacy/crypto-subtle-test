@@ -1,4 +1,5 @@
 import subtle from '../utils/subtle'
+import { config } from '../'
 
 /**
  * Use privateKey to dencrypt buffer with RSA-OAEP algorithm
@@ -12,8 +13,8 @@ import subtle from '../utils/subtle'
 export default async function(privateKey, cipherBuffer) {
   let buffer = await subtle.decrypt(
     {
-      name: 'RSA-OAEP',
-      hash: { name: 'SHA-512' } // has was added because MS Edge
+      name: config.rsa.name,
+      hash: { name: config.rsa.hash } // has was added because MS Edge
     },
     privateKey,
     cipherBuffer

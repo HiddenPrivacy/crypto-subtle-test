@@ -1,6 +1,7 @@
 import subtle from '../utils/subtle'
 import { decode } from '../utils/base64'
 import unwrap from '../utils/unwrap'
+import { config } from '../'
 
 export default async function(keyBuffer, format, usage) {
   if (!keyBuffer) throw 'Key is Empty'
@@ -10,8 +11,8 @@ export default async function(keyBuffer, format, usage) {
     format, //format
     decode(unwrap(keyBuffer)), //keyData
     {
-      name: 'RSA-OAEP', //algorithm
-      hash: 'SHA-512'
+      name: config.rsa.name,
+      hash: config.rsa.hash
     },
     false, //extractable
     usage

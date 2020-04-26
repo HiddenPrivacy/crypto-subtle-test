@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import RSA from '../views/RSA.vue'
+import AES from '../views/AES.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/rsa',
     name: 'RSA',
     component: RSA
+  },
+  {
+    path: '/aes',
+    name: 'AES',
+    component: AES
   }
 ]
 

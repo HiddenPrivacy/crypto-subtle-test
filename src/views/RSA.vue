@@ -3,7 +3,10 @@
     <h1>RSA Test</h1>
 
     <div class="box">
-      <button @click="generateKeys">Generate Keys</button>
+      <button @click="startGenerate">Generate Keys</button>
+      <span v-show="generationTime.valueOf()"
+        >{{ generationTime.valueOf() }} ms</span
+      >
     </div>
 
     <div class="box">
@@ -20,11 +23,17 @@
         <BaseHexView :bytes="randomBytes" />
       </div>
       <div>
-        <button @click="encrypt">Encrypt</button>
+        <button @click="startEncrypt">Encrypt</button>
+        <span v-show="encryptTime.valueOf()"
+          >{{ encryptTime.valueOf() }} ms</span
+        >
         <BaseHexView :bytes="cipherBytes" />
       </div>
       <div>
-        <button @click="decrypt">Decrypt</button>
+        <button @click="startDecrypt">Decrypt</button>
+        <span v-show="decryptTime.valueOf()"
+          >{{ decryptTime.valueOf() }} ms</span
+        >
         <BaseHexView :bytes="decryptedBytes" />
         <p v-if="decryptedBytes && isSame">
           Hurray, decrypted bytes are the same as random bytes.
@@ -41,11 +50,15 @@
 // @ is an alias to /src
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions, mapGetters } = createNamespacedHelpers('RSA')
+import timer from '@/libs/timer'
 
 export default {
   data() {
     return {
-      size: 64
+      size: 64,
+      generationTime: new timer(),
+      encryptTime: new timer(),
+      decryptTime: new timer()
     }
   },
 
@@ -63,6 +76,21 @@ export default {
   methods: {
     onSubmit() {
       this.generateRandomBytes(this.size)
+    },
+    async startGenerate() {
+      this.generationTime.start()
+      await this.generateKeys()
+      this.generationTime.end()
+    },
+    async startDecrypt() {
+      this.decryptTime.start()
+      await this.decrypt()
+      this.decryptTime.end()
+    },
+    async startEncrypt() {
+      this.encryptTime.start()
+      await this.encrypt()
+      this.encryptTime.end()
     },
     ...mapActions(['generateKeys', 'generateRandomBytes', 'encrypt', 'decrypt'])
   }

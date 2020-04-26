@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 import RSA from './RSA'
+import AES from './AES'
 
 export default new Vuex.Store({
   state: {
@@ -18,6 +19,7 @@ export default new Vuex.Store({
   },
   actions: {},
   modules: {
-    RSA
+    RSA,
+    AES
   }
 })

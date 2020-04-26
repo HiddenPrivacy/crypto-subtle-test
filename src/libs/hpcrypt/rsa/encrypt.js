@@ -1,7 +1,6 @@
 import subtle from '../utils/subtle'
 import { config } from '../'
 
-console.log(config)
 /**
  * Use publicKey to encrypt buffer with RSA-OAEP algorithm
  * learn more: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt

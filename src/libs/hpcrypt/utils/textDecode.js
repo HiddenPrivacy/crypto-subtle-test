@@ -5,5 +5,5 @@ export default function(buffer) {
 
   var str = String.fromCharCode.apply(null, new Uint8Array(buffer))
 
-  return escape(str)
+  return decodeURIComponent(escape(str))
 }

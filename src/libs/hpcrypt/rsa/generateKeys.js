@@ -3,8 +3,15 @@ import wrap from '../utils/wrap'
 import subtle from '../utils/subtle'
 import { config } from '../'
 
+/**
+ * Generate RSA key pair and returns object with privateKey and publicKey encoded in PEM format
+ * learn more: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/generateKey
+ * @async
+ * @returns {object}
+ * @throws {Error}
+ */
+
 export default async function() {
-  // https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/generateKey
   let cryptoKeyPair = await subtle.generateKey(config.rsa, true, [
     'encrypt',
     'decrypt'

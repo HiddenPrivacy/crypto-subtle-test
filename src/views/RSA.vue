@@ -116,6 +116,7 @@ export default {
 
   textarea {
     max-width: 100%;
+    display: block;
   }
 
   & > * {

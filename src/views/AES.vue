@@ -4,7 +4,7 @@
     <div class="box">
       <form @submit.prevent="startEncrypt">
         <textarea v-model="text" rows="10" cols="100" />
-        <p><button type="submit">Encode</button></p>
+        <p><button type="submit">Encrypt</button></p>
       </form>
     </div>
 
@@ -38,6 +38,8 @@
 <script>
 import { generateRandomBytes, aes, config } from '@/libs/hpcrypt'
 import { encode, decode } from '@/libs/hpcrypt/utils/base64'
+import textEncode from '@/libs/hpcrypt/utils/textEncode'
+import textDecode from '@/libs/hpcrypt/utils/textDecode'
 
 export default {
   data() {
@@ -57,7 +59,8 @@ export default {
         let key = await aes.generateKey()
         this.key = await aes.exportKey(key)
         this.iv = generateRandomBytes(config.aes.ivSize)
-        this.cipher = await aes.encrypt(key, this.iv, this.text)
+        let buffer = textEncode(this.text)
+        this.cipher = await aes.encrypt(key, this.iv, buffer)
       } catch (err) {
         console.error(err)
         alert('Encrypt failed\n' + err)
@@ -67,7 +70,9 @@ export default {
     async startDecrypt() {
       try {
         let key = await aes.importKey(this.key)
-        this.decryptedText = await aes.decrypt(key, this.iv, this.cipher)
+        this.decryptedText = textDecode(
+          await aes.decrypt(key, this.iv, this.cipher)
+        )
       } catch (err) {
         console.error(err)
         alert('Decrypt failed\n' + err)
@@ -97,5 +102,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss"></style>

@@ -1,5 +1,9 @@
 import rsa from './rsa'
 import aes from './aes'
+import decryptText from './decryptText'
+import encryptText from './encryptText'
+import encrypt from './encrypt'
+import decrypt from './decrypt'
 import generateRandomBytes from './generateRandomBytes'
 
 export const config = {
@@ -18,5 +22,21 @@ export const config = {
   }
 }
 
-export { rsa, aes, generateRandomBytes }
-export default { rsa, aes, generateRandomBytes }
+export {
+  decrypt,
+  decryptText,
+  encrypt,
+  encryptText,
+  rsa,
+  aes,
+  generateRandomBytes
+}
+export default {
+  decrypt,
+  decryptText,
+  encrypt,
+  encryptText,
+  rsa,
+  aes,
+  generateRandomBytes
+}

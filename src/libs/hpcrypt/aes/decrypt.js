@@ -1,6 +1,5 @@
 import subtle from '../utils/subtle'
 import { config } from '../'
-import textDecode from '../utils/textDecode'
 
 /**
  * Use publicKey to decrypt buffer with AES algorithm
@@ -9,7 +8,7 @@ import textDecode from '../utils/textDecode'
  * @param {CryptoKey} key
  * @param {BufferSource} iv - the initialization vector
  * @param {BufferSource} cipherBuffer
- * @returns {string}
+ * @returns {BufferSource}
  * @throws {Error}
  */
 export default async function(key, iv, cipherBuffer) {
@@ -24,5 +23,5 @@ export default async function(key, iv, cipherBuffer) {
     key,
     cipherBuffer
   )
-  return textDecode(buffer)
+  return buffer
 }

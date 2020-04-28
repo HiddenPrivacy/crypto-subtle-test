@@ -96,36 +96,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.box {
-  background: #f5f5f5;
-  margin: 20px;
-  border: 0;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-
-  @media screen and (min-width: 1500px) {
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-  }
-
-  textarea {
-    max-width: 100%;
-    display: block;
-  }
-
-  & > * {
-    display: block;
-    margin: 5px;
-
-    @media screen and (min-width: 1500px) {
-      margin: 20px;
-    }
-  }
-}
-</style>

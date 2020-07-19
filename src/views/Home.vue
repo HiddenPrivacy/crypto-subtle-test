@@ -22,7 +22,7 @@
 
 <script>
 // @ is an alias to /src
-import { encryptText, decryptText } from '@/libs/hpcrypt'
+import { encryptText, decryptText } from 'hpcrypt'
 import { createNamespacedHelpers } from 'vuex'
 const { mapState } = createNamespacedHelpers('RSA')
 

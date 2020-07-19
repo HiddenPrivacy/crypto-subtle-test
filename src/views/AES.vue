@@ -36,10 +36,10 @@
 </template>
 
 <script>
-import { generateRandomBytes, aes, config } from '@/libs/hpcrypt'
-import { encode, decode } from '@/libs/hpcrypt/utils/base64'
-import textEncode from '@/libs/hpcrypt/utils/textEncode'
-import textDecode from '@/libs/hpcrypt/utils/textDecode'
+import { generateRandomBytes, aes, config } from 'hpcrypt'
+import { encode, decode } from 'hpcrypt/utils/base64'
+import textEncode from 'hpcrypt/utils/textEncode'
+import textDecode from 'hpcrypt/utils/textDecode'
 
 export default {
   data() {

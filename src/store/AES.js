@@ -7,5 +7,5 @@ export default {
 
   mutations: {},
   actions: {},
-  modules: {}
+  modules: {},
 }

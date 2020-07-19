@@ -8,18 +8,18 @@ import AES from './AES'
 
 export default new Vuex.Store({
   state: {
-    status: 'idle'
+    status: 'idle',
   },
   getters: {},
 
   mutations: {
     SET_STATUS(state, status) {
       state.status = status
-    }
+    },
   },
   actions: {},
   modules: {
     RSA,
-    AES
-  }
+    AES,
+  },
 })

@@ -22,5 +22,6 @@
     "source.fixAll.eslint": true
   },
   "eslint.format.enable": true,
-  "vetur.format.defaultFormatter.html": "prettier"
+  "vetur.format.defaultFormatter.html": "prettier",
+  "files.eol": "\n"
 }

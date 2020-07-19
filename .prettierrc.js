@@ -1,4 +1,9 @@
 module.exports = {
+  semi: false,
   singleQuote: true,
-  semi: false
+  trailingCommas: {
+    array: true,
+    object: true,
+    function: false,
+  },
 }

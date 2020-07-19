@@ -31,12 +31,12 @@ export default {
     return {
       text: '',
       cipher: null,
-      decryptedText: null
+      decryptedText: null,
     }
   },
 
   computed: {
-    ...mapState(['privateKey', 'publicKey'])
+    ...mapState(['privateKey', 'publicKey']),
   },
 
   methods: {
@@ -56,8 +56,8 @@ export default {
         console.error(err)
         alert('Decrypt failed\n' + err)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

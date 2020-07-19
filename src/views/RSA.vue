@@ -58,7 +58,7 @@ export default {
       size: 64,
       generationTime: new timer(),
       encryptTime: new timer(),
-      decryptTime: new timer()
+      decryptTime: new timer(),
     }
   },
 
@@ -68,9 +68,9 @@ export default {
       'publicKey',
       'randomBytes',
       'cipherBytes',
-      'decryptedBytes'
+      'decryptedBytes',
     ]),
-    ...mapGetters(['isSame'])
+    ...mapGetters(['isSame']),
   },
 
   methods: {
@@ -92,7 +92,12 @@ export default {
       await this.encrypt()
       this.encryptTime.end()
     },
-    ...mapActions(['generateKeys', 'generateRandomBytes', 'encrypt', 'decrypt'])
-  }
+    ...mapActions([
+      'generateKeys',
+      'generateRandomBytes',
+      'encrypt',
+      'decrypt',
+    ]),
+  },
 }
 </script>

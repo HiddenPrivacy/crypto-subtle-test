@@ -1,10 +1,10 @@
 <template>
   <pre class="hex">
     <div
-  v-for="(line, index) in lines"
-  :key="`hex-${index}`"
-  :data-num="(index * 16).toString(16).padStart(8, '0')"
->
+      v-for="(line, index) in lines"
+      :key="`hex-${index}`"
+      :data-num="(index * 16).toString(16).padStart(8, '0')"
+    >
       <span v-for="(segment, sindex) in line" :key="`segment-${sindex}`" v-text="segment" />
     </div>
   </pre>
@@ -14,13 +14,8 @@
 function segment(typedArray) {
   let arr = []
 
-  typedArray.forEach(bit => {
-    arr.push(
-      bit
-        .toString(16)
-        .toUpperCase()
-        .padStart(2, '0')
-    )
+  typedArray.forEach((bit) => {
+    arr.push(bit.toString(16).toUpperCase().padStart(2, '0'))
   })
 
   return arr.length ? arr.join(' ') : null
@@ -29,11 +24,11 @@ function segment(typedArray) {
 export default {
   props: {
     bytes: {
-      type: [Uint8Array]
-    }
+      type: [Uint8Array],
+    },
   },
   computed: {
-    lines: function() {
+    lines: function () {
       if (!this.bytes) return []
 
       let lines = []
@@ -45,8 +40,8 @@ export default {
         lines.push(segments)
       }
       return lines
-    }
-  }
+    },
+  },
 }
 </script>
 

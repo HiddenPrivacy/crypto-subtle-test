@@ -4,7 +4,7 @@ import {
   importPublicKey,
   importPrivateKey,
   encrypt,
-  decrypt
+  decrypt,
 } from 'hpcrypt/rsa'
 
 export default {
@@ -15,7 +15,7 @@ export default {
     publicKey: null,
     randomBytes: null,
     cipherBytes: null,
-    decryptedBytes: null
+    decryptedBytes: null,
   },
 
   getters: {
@@ -30,7 +30,7 @@ export default {
       ) {
         return true
       } else return false
-    }
+    },
   },
 
   mutations: {
@@ -51,7 +51,7 @@ export default {
     },
     SET_DECRYPTED_BYTES(state, bytes) {
       state.decryptedBytes = bytes
-    }
+    },
   },
   actions: {
     async generateKeys(context) {
@@ -102,7 +102,7 @@ export default {
         alert('Decryption Failed\n' + err)
       }
       context.commit('SET_STATUS', 'idle', { root: true })
-    }
+    },
   },
-  modules: {}
+  modules: {},
 }

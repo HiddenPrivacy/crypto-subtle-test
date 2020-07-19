@@ -49,7 +49,7 @@ export default {
       key: null,
       iv: null,
       cipher: null,
-      json: null
+      json: null,
     }
   },
 
@@ -83,7 +83,7 @@ export default {
       let json = {
         key: encode(this.key),
         iv: encode(this.iv),
-        cipher: encode(this.cipher)
+        cipher: encode(this.cipher),
       }
       this.json = JSON.stringify(json)
     },
@@ -98,7 +98,7 @@ export default {
         console.error(err)
         alert('Paste failed')
       }
-    }
-  }
+    },
+  },
 }
 </script>

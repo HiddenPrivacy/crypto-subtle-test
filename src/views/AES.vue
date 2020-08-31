@@ -18,6 +18,10 @@
         <BaseHexView :bytes="iv" />
       </div>
       <div>
+        Hash
+        <BaseHexView :bytes="hash" />
+      </div>
+      <div>
         Cipher
         <BaseHexView :bytes="cipher" />
       </div>
@@ -36,7 +40,7 @@
 </template>
 
 <script>
-import { generateRandomBytes, aes, config } from 'hpcrypt'
+import { aes } from 'hpcrypt'
 import { encode, decode } from 'hpcrypt/utils/base64'
 import textEncode from 'hpcrypt/utils/textEncode'
 import textDecode from 'hpcrypt/utils/textDecode'
@@ -50,17 +54,19 @@ export default {
       iv: null,
       cipher: null,
       json: null,
+      hash: null,
     }
   },
 
   methods: {
     async startEncrypt() {
       try {
-        let key = await aes.generateKey()
-        this.key = await aes.exportKey(key)
-        this.iv = generateRandomBytes(config.aes.ivSize)
+        let kvh = await aes.generateKVH()
+        this.key = await aes.exportKey(kvh.key)
+        this.iv = kvh.iv
+        this.hash = kvh.hash
         let buffer = textEncode(this.text)
-        this.cipher = await aes.encrypt(key, this.iv, buffer)
+        this.cipher = await aes.encrypt(kvh, buffer)
       } catch (err) {
         console.error(err)
         alert('Encrypt failed\n' + err)
@@ -69,10 +75,8 @@ export default {
 
     async startDecrypt() {
       try {
-        let key = await aes.importKey(this.key)
-        this.decryptedText = textDecode(
-          await aes.decrypt(key, this.iv, this.cipher)
-        )
+        let kvh = await aes.importHash(this.hash)
+        this.decryptedText = textDecode(await aes.decrypt(kvh, this.cipher))
       } catch (err) {
         console.error(err)
         alert('Decrypt failed\n' + err)
@@ -81,8 +85,7 @@ export default {
 
     async copy() {
       let json = {
-        key: encode(this.key),
-        iv: encode(this.iv),
+        hash: encode(this.hash),
         cipher: encode(this.cipher),
       }
       this.json = JSON.stringify(json)
@@ -91,8 +94,7 @@ export default {
     async paste() {
       try {
         let json = JSON.parse(this.json)
-        this.key = new Uint8Array(decode(json.key))
-        this.iv = new Uint8Array(decode(json.iv))
+        this.hash = new Uint8Array(decode(json.hash))
         this.cipher = new Uint8Array(decode(json.cipher))
       } catch (err) {
         console.error(err)

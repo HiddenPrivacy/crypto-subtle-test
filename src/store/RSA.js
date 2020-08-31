@@ -5,6 +5,7 @@ import {
   importPrivateKey,
   encrypt,
   decrypt,
+  derivatePublicKey,
 } from 'hpcrypt/rsa'
 
 export default {
@@ -16,6 +17,7 @@ export default {
     randomBytes: null,
     cipherBytes: null,
     decryptedBytes: null,
+    extractedPublicKey: null,
   },
 
   getters: {
@@ -31,12 +33,17 @@ export default {
         return true
       } else return false
     },
+
+    isSameKeys(state) {
+      return state.publicKey == state.extractedPublicKey
+    },
   },
 
   mutations: {
     DELETE_KEYS(state) {
       state.privateKey = null
       state.publicKey = null
+      state.extractedPublicKey = null
     },
     SET_KEYS(state, keys) {
       state.privateKey = keys.privateKey
@@ -51,6 +58,9 @@ export default {
     },
     SET_DECRYPTED_BYTES(state, bytes) {
       state.decryptedBytes = bytes
+    },
+    SET_EXTRACTED_KEY(state, key) {
+      state.extractedPublicKey = key
     },
   },
   actions: {
@@ -102,6 +112,13 @@ export default {
         alert('Decryption Failed\n' + err)
       }
       context.commit('SET_STATUS', 'idle', { root: true })
+    },
+
+    async getPublicKey(context) {
+      context.commit(
+        'SET_EXTRACTED_KEY',
+        await derivatePublicKey(context.state.privateKey)
+      )
     },
   },
   modules: {},

@@ -43,6 +43,14 @@
         </p>
       </div>
     </div>
+
+    <div class="box">
+      <button @click.prevent="getPublicKey">Get Public Key</button>
+      <template v-if="extractedPublicKey">
+        <p v-if="isSameKeys">Keys are the same</p>
+        <p v-else>Keys are NOT the same</p>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -69,8 +77,9 @@ export default {
       'randomBytes',
       'cipherBytes',
       'decryptedBytes',
+      'extractedPublicKey',
     ]),
-    ...mapGetters(['isSame']),
+    ...mapGetters(['isSame', 'isSameKeys']),
   },
 
   methods: {
@@ -95,6 +104,7 @@ export default {
     ...mapActions([
       'generateKeys',
       'generateRandomBytes',
+      'getPublicKey',
       'encrypt',
       'decrypt',
     ]),

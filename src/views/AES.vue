@@ -18,10 +18,6 @@
         <BaseHexView :bytes="iv" />
       </div>
       <div>
-        Hash
-        <BaseHexView :bytes="hash" />
-      </div>
-      <div>
         Cipher
         <BaseHexView :bytes="cipher" />
       </div>
@@ -50,6 +46,7 @@ export default {
     return {
       text: '',
       decryptedText: null,
+      keyIV: null,
       key: null,
       iv: null,
       cipher: null,
@@ -61,12 +58,10 @@ export default {
   methods: {
     async startEncrypt() {
       try {
-        let kvh = await aes.generateKVH()
-        this.key = await aes.exportKey(kvh.key)
-        this.iv = kvh.iv
-        this.hash = kvh.hash
+        this.keyIV = await aes.generateKeyIV()
+        await this.update()
         let buffer = textEncode(this.text)
-        this.cipher = await aes.encrypt(kvh, buffer)
+        this.cipher = await aes.encrypt(this.keyIV, buffer)
       } catch (err) {
         console.error(err)
         alert('Encrypt failed\n' + err)
@@ -75,17 +70,24 @@ export default {
 
     async startDecrypt() {
       try {
-        let kvh = await aes.importHash(this.hash)
-        this.decryptedText = textDecode(await aes.decrypt(kvh, this.cipher))
+        this.decryptedText = textDecode(
+          await aes.decrypt(this.keyIV, this.cipher)
+        )
       } catch (err) {
         console.error(err)
         alert('Decrypt failed\n' + err)
       }
     },
 
+    async update() {
+      this.key = await aes.exportKey(this.keyIV.key)
+      this.iv = this.keyIV.iv
+    },
+
     async copy() {
+      const hash = await aes.exportKeyIV(this.keyIV)
       let json = {
-        hash: encode(this.hash),
+        hash: encode(hash),
         cipher: encode(this.cipher),
       }
       this.json = JSON.stringify(json)
@@ -94,7 +96,9 @@ export default {
     async paste() {
       try {
         let json = JSON.parse(this.json)
-        this.hash = new Uint8Array(decode(json.hash))
+        const hash = new Uint8Array(decode(json.hash))
+        this.keyIV = await aes.importKeyIV(hash)
+        await this.update()
         this.cipher = new Uint8Array(decode(json.cipher))
       } catch (err) {
         console.error(err)

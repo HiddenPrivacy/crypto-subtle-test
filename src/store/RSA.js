@@ -72,7 +72,7 @@ export default {
         let keys = await generateKeys()
         context.commit('SET_KEYS', keys)
       } catch (err) {
-        console.error(err)
+        console.error(err) // eslint-disable-line no-console
         alert('Keys generation failed\n' + err)
       }
       context.commit('SET_STATUS', 'idle', { root: true })
@@ -92,7 +92,7 @@ export default {
           await encrypt(key, context.state.randomBytes)
         )
       } catch (err) {
-        console.error(err)
+        console.error(err) // eslint-disable-line no-console
         alert('Encryption Failed\n' + err)
       }
       context.commit('SET_STATUS', 'idle', { root: true })
@@ -108,7 +108,7 @@ export default {
           await decrypt(key, context.state.cipherBytes)
         )
       } catch (err) {
-        console.error(err)
+        console.error(err) // eslint-disable-line no-console
         alert('Decryption Failed\n' + err)
       }
       context.commit('SET_STATUS', 'idle', { root: true })

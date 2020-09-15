@@ -44,7 +44,7 @@ export default {
       try {
         this.cipher = await encryptText(this.publicKey, this.text)
       } catch (err) {
-        console.error(err)
+        console.error(err) // eslint-disable-line no-console
         alert('Encrypt failed\n' + err)
       }
     },
@@ -53,7 +53,7 @@ export default {
       try {
         this.decryptedText = await decryptText(this.privateKey, this.cipher)
       } catch (err) {
-        console.error(err)
+        console.error(err) // eslint-disable-line no-console
         alert('Decrypt failed\n' + err)
       }
     },

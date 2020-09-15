@@ -63,7 +63,7 @@ export default {
         let buffer = textEncode(this.text)
         this.cipher = await aes.encrypt(this.keyIV, buffer)
       } catch (err) {
-        console.error(err)
+        console.error(err) // eslint-disable-line no-console
         alert('Encrypt failed\n' + err)
       }
     },
@@ -74,7 +74,7 @@ export default {
           await aes.decrypt(this.keyIV, this.cipher)
         )
       } catch (err) {
-        console.error(err)
+        console.error(err) // eslint-disable-line no-console
         alert('Decrypt failed\n' + err)
       }
     },
@@ -101,7 +101,7 @@ export default {
         await this.update()
         this.cipher = new Uint8Array(decode(json.cipher))
       } catch (err) {
-        console.error(err)
+        console.error(err) // eslint-disable-line no-console
         alert('Paste failed')
       }
     },
